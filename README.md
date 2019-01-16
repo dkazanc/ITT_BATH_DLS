@@ -3,6 +3,7 @@
 **All comments and questions regarding the code/data/installation can be addressed to:**
 
 Daniil Kazantsev <daniil.kazantsev@diamond.ac.uk>
+
 Paul Quinn <paul.quinn@diamond.ac.uk>
 
 ![DLS](https://www.diamond.ac.uk/Home/About/base/0/text_files/file0/document/AerialLinkedIn_RT.jpg)
