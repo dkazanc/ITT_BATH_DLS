@@ -10,15 +10,18 @@ There is a number of software dependences require installation. I suggest  creat
 	
 4. Now you're ready to install software into your **itt** environment, do:
 	```
-	conda install spyder
 	conda install -c anaconda pillow
 	conda install scikit-learn
 	conda install matplotlib
 	conda install -c anaconda cython
-	conda install -c anaconda h5p
+	conda install -c anaconda h5py
+	conda install spyder
 5. Install [TomoPhantom](https://github.com/dkazanc/TomoPhantom) software for tomographic data modelling and reconstruction  
 `conda install -c tomophantom -c ccpi -c conda-forge`
 6. Install [FISTA-tomo](https://github.com/dkazanc/FISTA-tomo) package where *normalisation* function might be needed for **Data alignment** challenge: `conda install -c dkazanc fista-tomo`
 7. Install [CCPi Regularisation toolkit](https://github.com/vais-ral/CCPi-Regularisation-Toolkit) which might be helpful to run some denoising routines for **Objects tracking** and **Dynamic imaging** challenges. `
 conda install ccpi-regulariser -c ccpi -c conda-forge`
 
+# Other useful `conda` commands
+- the list of environments: `conda info --envs`
+- delete created **itt** environment: `conda remove --name itt --all`
