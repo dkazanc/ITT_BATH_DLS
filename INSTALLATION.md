@@ -19,9 +19,10 @@ There is a number of software dependences require installation. I suggest  creat
 	conda install -c anaconda cython
 	conda install -c anaconda h5py
 	conda install spyder
-5. Install [TomoPhantom](https://github.com/dkazanc/TomoPhantom) software for tomographic data modelling and reconstruction  
-`conda install -c tomophantom -c ccpi -c conda-forge`
-6. Install [FISTA-tomo](https://github.com/dkazanc/FISTA-tomo) package where *normalisation* function might be needed for **Data alignment** challenge: `conda install -c dkazanc fista-tomo`
+5. Install [TomoPhantom](https://github.com/dkazanc/TomoPhantom) software for tomographic data modelling  
+`conda install -c dkazanc tomophantom`
+6. Install [TomoRec](https://github.com/dkazanc/TomoRec) package for reconstruction, normalisation routines: 
+`conda install -c dkazanc tomorec`
 7. Install [CCPi Regularisation toolkit](https://github.com/vais-ral/CCPi-Regularisation-Toolkit) which might be helpful to run some denoising routines for **Objects tracking** and **Dynamic imaging** challenges. `
 conda install ccpi-regulariser -c ccpi -c conda-forge`
 
