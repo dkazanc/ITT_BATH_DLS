@@ -30,7 +30,9 @@ There is a number of software dependences require installation. I suggest  creat
 	`conda install -c dkazanc tomorec`
 7. Install [CCPi Regularisation toolkit](https://github.com/vais-ral/CCPi-Regularisation-Toolkit) which might be helpful to run some denoising routines for **Objects tracking** and **Dynamic imaging** challenges.
 
-	`conda install ccpi-regulariser -c ccpi -c conda-forge`
+	`conda install ccpi-regulariser -c ccpi -c conda-forge` - for Linux or
+	
+	`conda install -c dkazanc ccpi-regulariser ` - for Windows
 
 
 #### Other useful `conda` commands
