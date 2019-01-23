@@ -19,9 +19,15 @@ There is a number of software dependences require installation. I suggest  creat
 	conda install -c astra-toolbox astra-toolbox
 	conda install pillow=4.1.1
 	conda install scikit-learn
+	conda install scikit-image	
 	conda install matplotlib
 	conda install -c anaconda h5py	
 	conda install spyder
+	conda install -c nexpy nexusformat
+	conda install ipywidgets
+	conda install -c pyviz holoviews bokeh
+	conda install hyperspy -c conda-forge
+	
 5. Install [TomoPhantom](https://github.com/dkazanc/TomoPhantom) software for tomographic data modelling:
 	
 	`conda install -c dkazanc tomophantom`
