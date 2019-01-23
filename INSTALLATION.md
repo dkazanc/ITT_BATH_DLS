@@ -8,7 +8,7 @@ There is a number of software dependences require installation. I suggest  creat
 
 1. [Download](https://www.anaconda.com/download/) and install Anaconda:selecting Python 3.7 option
 	
-2. Create own conda environment called **itt** with: `conda create -n itt python=3.5`
+2. Create own conda environment called **itt** with: `conda create -n itt numpy=1.13 python=3.6`
 
 3. In a terminal (In Windows type `Anaconda Prompt` to initialise a terminal) activate the environment: 
 ` 
@@ -16,11 +16,10 @@ There is a number of software dependences require installation. I suggest  creat
 	
 4. Now you're ready to install software into your **itt** environment, do:
 	```
-	conda install -c anaconda pillow
 	conda install scikit-learn
 	conda install matplotlib
-	conda install -c anaconda cython
 	conda install -c anaconda h5py
+	conda install -c astra-toolbox astra-toolbox
 	conda install spyder
 5. Install [TomoPhantom](https://github.com/dkazanc/TomoPhantom) software for tomographic data modelling:
 	
