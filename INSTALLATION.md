@@ -16,10 +16,11 @@ There is a number of software dependences require installation. I suggest  creat
 	
 4. Now you're ready to install software into your **itt** environment, do:
 	```
+	conda install -c astra-toolbox astra-toolbox
+	conda install pillow=4.1.1
 	conda install scikit-learn
 	conda install matplotlib
-	conda install -c anaconda h5py
-	conda install -c astra-toolbox astra-toolbox
+	conda install -c anaconda h5py	
 	conda install spyder
 5. Install [TomoPhantom](https://github.com/dkazanc/TomoPhantom) software for tomographic data modelling:
 	
