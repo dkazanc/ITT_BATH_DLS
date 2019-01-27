@@ -11,7 +11,7 @@ Dependencies:
     * CCPi-RGL toolkit (for regularisation), install with 
     conda install ccpi-regulariser -c ccpi -c conda-forge
     or conda build of  https://github.com/vais-ral/CCPi-Regularisation-Toolkit
-    * TomoPhantom, https://github.com/dkazanc/TomoPhantom
+    * TomoRec https://github.com/dkazanc/TomoRec
 
 <<<
 IF THE SHARED DATA ARE USED FOR PUBLICATIONS/PRESENTATIONS etc., PLEASE CITE:
@@ -25,7 +25,6 @@ Journal of Food Engineering, vol.237
 import h5py
 import numpy as np
 import matplotlib.pyplot as plt
-
 #%%
 # loading data 
 h5f = h5py.File('data/data_icecream_1_slice_35_frames.h5','r')
@@ -79,7 +78,7 @@ plt.show()
 print ("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 print ("%%%%%%%%%%%%Reconstructing with FBP method %%%%%%%%%%%%%%%%%")
 print ("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-from tomophantom.supp.astraOP import AstraTools
+from tomorec.methodsDIR import RecToolsDIR
 
 N_size = 2500
 timeframe_no = np.size(data_norm,2)
@@ -87,14 +86,18 @@ det_y_crop = [i for i in range(0,2374)]
 FBP_timeframes = np.zeros((N_size, N_size, timeframe_no), dtype='float32')
 
 for i in range(0, timeframe_no):
-    Atools = AstraTools(np.size(det_y_crop), angles_rad[:,i], N_size, 'gpu') # initiate a class object
-    FBP_timeframes[:,:,i] = Atools.fbp2D(np.transpose(data_norm[det_y_crop,:,i]))
+    RectoolsDIR = RecToolsDIR(DetectorsDimH = np.size(det_y_crop),  # DetectorsDimH # detector dimension (horizontal)
+                    DetectorsDimV = None,  # DetectorsDimV # detector dimension (vertical) for 3D case only
+                    AnglesVec = angles_rad[i,:], # array of angles in radians
+                    ObjSize = N_size, # a scalar to define reconstructed object dimensions
+                    device='gpu')
+    FBP_timeframes[:,:,i] = RectoolsDIR.FBP(np.transpose(data_norm[det_y_crop,:,i]))
 """
 #%%
 print ("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 print ("Reconstructing with FISTA PWLS-OS-TV method % %%%%%%%%%%%%%%")
 print ("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-from fista.tomo.recModIter import RecTools
+from tomorec.methodsIR import RecToolsIR
 
 N_size = 2500
 det_y_crop = [i for i in range(0,2374)]
@@ -103,7 +106,7 @@ FISTA_TV_timeframes = np.zeros((N_size, N_size, timeframe_no), dtype='float32')
 
 for i in range(0, timeframe_no):
     # set parameters and initiate a class object
-    Rectools = RecTools(DetectorsDimH = np.size(det_y_crop),  # DetectorsDimH # detector dimension (horizontal)
+    Rectools = RecToolsIR(DetectorsDimH = np.size(det_y_crop),  # DetectorsDimH # detector dimension (horizontal)
                     DetectorsDimV = None,  # DetectorsDimV # detector dimension (vertical) for 3D case only
                     AnglesVec = angles_rad[:,i], # array of angles in radians
                     ObjSize = N_size, # a scalar to define reconstructed object dimensions

@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-# reading I23 data to demonstrate alighnment challenges
+# reading and reconstructing I23 data to demonstrate alighnment problems
 """
 
 # reading i23 data
@@ -9,10 +9,10 @@
 import h5py
 import numpy as np
 import matplotlib.pyplot as plt
-from fista.tomo.suppTools import normaliser
+from tomorec.supp.suppTools import normaliser
 
 #vert_tuple = [i for i in range(250,1400)] # selection of vertical slices
-vert_tuple = [i for i in range(500,650)] # selection of vertical slices
+vert_tuple = [i for i in range(500,650)] # selection of vertical slice
 
 # reading darks and flats
 darks_list = h5py.File("rawdata/12639.nxs",'r')
@@ -28,7 +28,6 @@ darks = np.swapaxes(np.swapaxes(darks,2,0),2,1)
 
 darks_list.close()
 flats_list.close()
-
 #%%
 fig= plt.figure()
 plt.rcParams.update({'font.size': 21})
@@ -55,6 +54,8 @@ data_raw[6,:,:] = proj_list['/entry1/instrument/pco1600_dio_hdf/data'][1200,vert
 data_raw[7,:,:] = proj_list['/entry1/instrument/pco1600_dio_hdf/data'][1400,vert_tuple,:]
 data_raw[8,:,:] = proj_list['/entry1/instrument/pco1600_dio_hdf/data'][1600,vert_tuple,:]
 data_raw[9,:,:] = proj_list['/entry1/instrument/pco1600_dio_hdf/data'][1800,vert_tuple,:]
+
+angles = proj_list['/entry1/instrument/tomoScanDevice/gon_omega'][:] # extract angles
 data_raw = np.swapaxes(np.swapaxes(data_raw,2,0),2,1)
 #%%
 fig = plt.figure()

@@ -11,7 +11,7 @@ Dependencies:
     * CCPi-RGL toolkit (for regularisation), install with 
     conda install ccpi-regulariser -c ccpi -c conda-forge
     or conda build of  https://github.com/vais-ral/CCPi-Regularisation-Toolkit
-    * TomoPhantom, https://github.com/dkazanc/TomoPhantom
+    * TomoRec https://github.com/dkazanc/TomoRec
 
 <<<
 IF THE SHARED DATA ARE USED FOR PUBLICATIONS/PRESENTATIONS etc., PLEASE CITE:
@@ -88,20 +88,24 @@ plt.show()
 print ("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 print ("%%%%%%%%%%%%Reconstructing with FBP method %%%%%%%%%%%%%%%%%")
 print ("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-from tomophantom.supp.astraOP import AstraTools
+from tomorec.methodsDIR import RecToolsDIR
 
 N_size = 950
 detectHoriz, anglesNum, timeframe_no = np.shape(data_norm)
 FBP_timeframes = np.zeros((N_size, N_size, timeframe_no), dtype='float32')
 
 for i in range(0, timeframe_no):
-    Atools = AstraTools(detectHoriz, angles_rad[i,:], N_size, 'gpu') # initiate a class object
-    FBP_timeframes[:,:,i] = Atools.fbp2D(np.transpose(data_norm[:,:,i]))
+    RectoolsDIR = RecToolsDIR(DetectorsDimH = detectHoriz,  # DetectorsDimH # detector dimension (horizontal)
+                    DetectorsDimV = None,  # DetectorsDimV # detector dimension (vertical) for 3D case only
+                    AnglesVec = angles_rad[i,:], # array of angles in radians
+                    ObjSize = N_size, # a scalar to define reconstructed object dimensions
+                    device='gpu')
+    FBP_timeframes[:,:,i] = RectoolsDIR.FBP(np.transpose(data_norm[:,:,i]))
 #%%
 print ("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 print ("Reconstructing with FISTA PWLS-OS-TV method % %%%%%%%%%%%%%%")
 print ("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-from fista.tomo.recModIter import RecTools
+from tomorec.methodsIR import RecToolsIR
 
 N_size = 950
 detectHoriz, anglesNum, timeframe_no = np.shape(data_norm)
@@ -109,7 +113,7 @@ FISTA_TV_timeframes = np.zeros((N_size, N_size, timeframe_no), dtype='float32')
 
 for i in range(0, timeframe_no):
     # set parameters and initiate a class object
-    Rectools = RecTools(DetectorsDimH = detectHoriz,  # DetectorsDimH # detector dimension (horizontal)
+    Rectools = RecToolsIR(DetectorsDimH = detectHoriz,  # DetectorsDimH # detector dimension (horizontal)
                     DetectorsDimV = None,  # DetectorsDimV # detector dimension (vertical) for 3D case only
                     AnglesVec = angles_rad[i,:], # array of angles in radians
                     ObjSize = N_size, # a scalar to define reconstructed object dimensions
